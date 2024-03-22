@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:25:57 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/19 15:38:45 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:25:54 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	**make_area(char **zone, int _x, int _y)
 	 print_maptest(data->area );
 	return (data->area);
 }
+
+
 
 int	flood_fill(char **tab, t_point size, t_point begin)
 {

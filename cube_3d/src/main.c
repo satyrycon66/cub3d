@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 11:51:01 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/22 10:52:37 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:54:55 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ int32_t	main(int argc, char **argv)
 	if (chekup_cub(argv[1]) == 0)
 		return (0);
 	extract_map(argv[1], 0, 0);
-	// print_maptest(data->map);
-	
+
 	if (ft_mapchekup(data->map) == 0)
 		return (0);
+		
 	// data->mlx = mlx_init((ft_strlen(data->map[0]) -1) * 64,
 	// 		ft_strlenj(data->map) * 64, "so_long", false);
 	// if (!data->mlx)
@@ -105,12 +105,12 @@ int32_t	main(int argc, char **argv)
 	  printf("SO =%s\n", data->SO);
 	   printf("WE =%s\n",  data->WE);
 	    printf("EA =%s\n",  data->EA);
-		 printf("F =%s\n",  data->F);
-		  printf("C =%s\n",  data->C);
-		  printf("%d\n",data->F_R);
+	 printf("F =%s\n",  data->F);
+	printf("C =%s\n",  data->C);
+	printf("%d\n",data->F_R);
 	printf("%d\n",data->F_G);
 	printf("%d\n",data->F_B);
-			  printf("%d\n",data->C_R);
+	printf("%d\n",data->C_R);
 	printf("%d\n",data->C_G);
 	printf("%d\n",data->C_B);
 	write(1,"succes",6);
