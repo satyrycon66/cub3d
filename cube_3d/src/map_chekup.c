@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:25:44 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/22 17:15:52 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:49:57 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,9 @@ int	extract_texture(char **map, int j, int i, char *type)
 	t_data	*data;
 	int		temp;
 	int		len;
+	int no_path;
 
+	no_path = 0;
 	data = get_data();
 	i = i + 2;
 	len = 0;
@@ -301,6 +303,9 @@ int	chekup_and_extract_texture(char **map)
 	data = get_data();
 	i = 0;
 	j = 0;
+	int no_path;
+
+	no_path = 0;
 	while (map[j])
 	{
 		while ((map[j][i] == ' ') && map[j][i] != '\n' && map[j][i] != '\0')
@@ -309,12 +314,14 @@ int	chekup_and_extract_texture(char **map)
 		}
 		if (map[j][i] == 'N' && map[j][i + 1] == 'O' && map[j][i + 2] == ' ')
 			{
+				no_path++;
 				if(extract_texture(map, j, i, "NO") == 0)
 				return(0);
 			}
 		else if (map[j][i] == 'S' && map[j][i + 1] == 'O' && map[j][i
 			+ 2] == ' ')
 			{
+				no_path++;
 				if(extract_texture(map, j, i, "SO") == 0)
 				return 0;
 			}
@@ -322,25 +329,37 @@ int	chekup_and_extract_texture(char **map)
 		else if (map[j][i] == 'W' && map[j][i + 1] == 'E' && map[j][i
 			+ 2] == ' ')
 			{
+				no_path++;
 				if(extract_texture(map, j, i, "WE") == 0)
 				return 0;
 			}
 		else if (map[j][i] == 'E' && map[j][i + 1] == 'A' && map[j][i
 			+ 2] == ' ')
-				{
+			{
+				no_path++;
 				if(extract_texture(map, j, i, "EA") == 0)
 				return 0;
 			}
 		else if (map[j][i] == 'F' && map[j][i + 1] == ' ')
-				{
+			{
+				no_path++;
 				if(extract_texture(map, j, i, "F") == 0)
 				return 0;
 			}
 		else if (map[j][i] == 'C' && map[j][i + 1] == ' ')
 			{
+				no_path++;
 				if(extract_texture(map, j, i, "C") == 0)
 				return 0;
 			}
+		if(no_path == 6 && map[j][i] == '1' )
+		{
+			
+			data->start_map = j ;
+			return (1);
+		}
+		
+		
 		i = 0;
 		j++;
 	}
@@ -369,73 +388,66 @@ int	extract_rgb(void)
 		}
 		if (rgb == 1)
 		{
-			rgb++;
 			temp[j] = '\0';
 			data->F_R = ft_atoi(temp);
 			
 		}
 		else if (rgb == 2)
 		{
-			rgb++;
 			temp[j] = '\0';
 			data->F_G = ft_atoi(temp);
 		}
 		else if (rgb == 3)
 		{
-			rgb++;
 			temp[j] = '\0';
 			data->F_B = ft_atoi(temp);
 		}
-		else
-			rgb++;
+		if(data->F[i] == ',')
+		rgb++;
 		j = 0;
 		i++;
 	}
+	if(rgb != 3)
+	return 0;
 	i = 0;
 	j = 0;
-	// printf("%d",rgb);
-	if(rgb != 4)
-	return 0;
+
+	
 	
 	rgb = 1;
 	while (data->C[i])
 	{
+		
 		while (data->C[i] != ',' && data->C[i])
 		{
 			temp[j] = data->C[i];
 			i++;
 			j++;
 		}
-		// if(data->C[i] == ',')
-		// printf("%d",rgb);
-		
 		if (rgb == 1)
 		{
-			rgb++;
 			temp[j] = '\0';
 			data->C_R = ft_atoi(temp);
 		}
 		else if (rgb == 2)
 		{
-			rgb++;
 			temp[j] = '\0';
 			data->C_G = ft_atoi(temp);
 		}
 		else if (rgb == 3)
 		{
-			rgb++;
 			temp[j] = '\0';
 			data->C_B = ft_atoi(temp);
 		}
-	
+		if(data->C[i] == ',')
+		rgb++;
 		j = 0;
 		i++;
 	}
-	if(rgb != 4)
+	if(rgb != 3)
 	return 0;
 
 	return (1);
-	// free(temp);
 }
 
 int	chekup_F_and_C(void)
@@ -504,23 +516,37 @@ int	chekup_path(void)
 		return (0);
 	return (1);
 }
-// void extract_area(void)
-// {
-// 	t_data	*data;
+void extract_real_map(void)
+{
+	int		i;
+	int		j;
+	int g;
+	t_data	*data;
 
-// 	data = get_data();
-// 	// int	maxi;
-// 	int j;
-
+	data = get_data();
+	i = 0;
+	g = 0;
 	
-// 	j = ft_strlenj(data->map);
-// 	while(data->map[j][0] != '\n')
-// 	{
-// 		j--;
-// 	}
-	
-		
-// }
+	data->maxj = ft_strlenj(data->map);
+	j = data->start_map;
+	data->real_map = (char **)calloc(sizeof(char *), (data->maxj - data->start_map) +1);
+	while (data->map[j])
+	{
+		data->real_map[g] = (char *)calloc(sizeof(char), ft_strlen(data->map[j]));
+		while (data->map[j][i])
+		{
+			
+			data->real_map[g][i] = data->map[j][i];
+			++i;
+		}
+		++j;
+		++g;
+		i = 0;
+	}
+	data->real_map[g] = NULL;
+	//  print_maptest(data->area );
+	// return (data->area);	
+}
 
 int	ft_mapchekup(char **map)
 {
@@ -552,9 +578,19 @@ int	ft_mapchekup(char **map)
 		write(2, "Error\nrgb\n", 11);
 		return (0);
 	}
-	// write(1,"test\n",5);
-	// write(1,"test\n",5);
-	// extract_area();
+	extract_real_map();
+	
+	if (chekup_character(data->real_map) == 0)
+	{
+		write(1, "Error\ncharacter\n", 16);
+		return (0);
+	}
+	if (contchar(data->real_map, 0) == 0)
+	{
+		write(1, " Error\ncontchar\n", 16);
+		return (0);
+	}
+
 	// if (chekup_mapsize(map) == 0)
 	// 	return (0);
 	// if (chekup_contour(map) == 0)
@@ -562,21 +598,10 @@ int	ft_mapchekup(char **map)
 	// 	write(1, "Error\ncontour\n", 14);
 	// 	return (0);
 	// // }
-	// if (chekup_character(map) == 0)
-	// {
-	// 	write(1, "Error\ncharacter\n", 16);
-	// 	return (0);
-	// }
-	// if (contchar(map, 0) == 0)
-	// {
-	// 	write(1, " Error\ncontchar\n", 16);
-	// 	return (0);
-	// }
-	// if (flood_fill_main(map, 0, 0) == 0)
-	// {
-	// 	write(1, "Error\nmap impossible\n", 21);
-	// 	return (0);
-	// }
-	// found_exit(map);
+	if (flood_fill_main(data->real_map, 0, 0) == 0)
+	{
+		write(1, "Error\nmap impossible\n", 21);
+		return (0);
+	}
 	return (1);
 }

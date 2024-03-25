@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:25:18 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/22 11:18:29 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:00:03 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	int				line_length;
 	int				endian;
 	char			**map;
+	char 			**real_map;
 	int				playeri;
 	int				playerj;
 	int				nc;
@@ -74,6 +75,8 @@ typedef struct s_data
 	mlx_image_t		*exit_img;
 	mlx_image_t		*ground_img;
 	mlx_image_t		*print_move;
+	
+	int start_map;
 
 }					t_data;
 
@@ -81,8 +84,8 @@ typedef struct s_data
 // int					chekup_contour(char **map);
 int					chekup_character(char **map);
 int					ft_mapchekup(char **map);
-char				**make_area(char **zone, int _x, int _y);
-int				flood_fill(char **tab, t_point size, t_point begin);
+char				**make_area(char **zone, int _x);
+int			flood_fill(char **tab, t_point size, t_point begin);
 int					contchar(char **map, int np);
 int					flood_fill_main(char **map, int i, int j);
 char				*ft_strjoing(char *s1, char *s2);
