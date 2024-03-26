@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:35:51 by siroulea          #+#    #+#             */
-/*   Updated: 2023/06/15 15:49:56 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:05:39 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strcopie(dest, (char *)s1);
 	ft_strcat(dest, (char *)s2);
 	return (dest);
-}
-
-void	delete_image(void)
-{
-	t_data	*data;
-
-	data = get_data();
-	mlx_delete_image(data->mlx, data->collectible_img);
-	mlx_delete_image(data->mlx, data->wall_img);
-	mlx_delete_image(data->mlx, data->player_img);
 }

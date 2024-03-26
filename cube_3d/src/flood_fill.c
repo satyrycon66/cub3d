@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:25:57 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/25 17:30:52 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:41:17 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ char	**make_area(char **zone, int _y)
 	data->area = (char **)calloc(sizeof(char *), _y+1);
 	while (zone[j])
 	{
-		data->area[j] = (char *)calloc(sizeof(char), ft_strlen(zone[j]));
+		data->area[j] = (char *)calloc(sizeof(char), ft_strlen(zone[j]+1));
 		while (zone[j][i])
 		{
 			data->area[j][i] = zone[j][i];
 			++i;
 		}
+		data->area[j][i] = '\0';
 		++j;
 		i = 0;
 	}
+	data->area[j] = NULL;
+		
 	return (data->area);
 }
 
@@ -120,28 +123,6 @@ int	contchar(char **map,int np)
 	return (0);
 }
 
-int	chek_final(char **area)
-{
-	int		j;
-	int		i;
-	t_data	*data;
-
-	data = get_data();
-	j = 0;
-	i = 0;
-	while (j < data->maxj)
-	{
-		while (area[j][i] != '\0')
-		{
-			if (area[j][i] != 'F'  && area[j][i] != '1' && area[j][i] != ' ' && area[j][i] != '\t' && area[j][i] != '\n' && area[j][i] != '0')
-				return (0);
-			i++;
-		}
-		j++;
-		i = 0;
-	}
-	return (1);
-}
 void print_maptest(char **map )
 {
 
@@ -163,8 +144,6 @@ void print_maptest(char **map )
 	
 }
 
-
-
 	int	flood_fill_main(char **map, int i, int j)
 {
 	char	**area;
@@ -182,34 +161,6 @@ void print_maptest(char **map )
 	
 	if(flood_fill(area, size, begin) == 0)
 	return 0;
-	print_maptest(area);
-	// if (chek_final(area) == 0)
-	// 	return (0);
+	// print_maptest(area);
 	return (1);
 }
-
-
-
-	
-	// char	**area;
-	// t_point	size;
-	// t_point	begin;
-	// t_data	*data;
-
-	// data = get_data();
-	// found_player(map, &j, &i);
-	// size.x = ft_strlen(map[0]);
-	
-	// begin.y = j;
-	// begin.x = i;
-	// area = make_area(map, size.x);
-	// // print_maptest(area );
-	// flood_fill(area, size, begin);
-	
-	// // if (chek_final(area) == 0)
-	// // 	return (0);
-	// print_maptest(area );
-	// return (1);
-
-
-

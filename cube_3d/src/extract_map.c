@@ -6,7 +6,7 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:25:11 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/25 13:22:27 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:51:26 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,3 @@ char	**extract_map(char *mapname, int i, int j)
 	close(fd);
 	return (data->map);
 }
-
-void	put_image(void)
-{
-	asing_texture();
-	texture_to_image();
-	print_background_map();
-	print_map();
-}
-
-// void	found_exit(char **map)
-// {
-// 	t_data	*data;
-// 	int		i;
-// 	int		j;
-
-// 	data = get_data();
-// 	i = 0;
-// 	j = 0;
-// 	while (map[++j])
-// 	{
-// 		while (map[j][i++])
-// 		{
-// 			if (map[j][i] == 'E')
-// 			{
-// 				data->exit_j = j;
-// 				data->exit_i = i;
-// 			}
-// 		}
-// 		i = 0;
-// 	}
-// }

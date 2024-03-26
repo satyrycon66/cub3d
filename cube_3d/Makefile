@@ -6,7 +6,7 @@
 #    By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:59:02 by siroulea          #+#    #+#              #
-#    Updated: 2024/03/08 14:00:41 by siroulea         ###   ########.fr        #
+#    Updated: 2024/03/26 13:54:00 by siroulea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,13 @@ LIBS	= MLX42/libmlx42.a MLX42/libglfw3.a
 HEADERS	= -I ./include -I $(LIBMLX)/include
 
 SRCS	=	src/main.c		\
-		src/hook.c		\
 		src/extract_map.c	\
 		src/flood_fill.c	\
-		src/creat_image.c	\
 		src/utils.c		\
+		src/utils2.c		\
 		src/get_next_line.c	\
 		src/map_chekup.c	\
+		src/map_chekup2.c   \
 		src/ft_strjoin.c 	\
 		src/ft_itoa.c
 
@@ -90,7 +90,7 @@ rm_bin:
 re: fclean all
 
 leaks: all
-	leaks -atExit -- ./so_long map/map01.ber
+	leaks -atExit -- ./cub3D map/map01.cub
 
 play: all
 	./cub3D map/map01.ber

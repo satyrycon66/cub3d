@@ -6,66 +6,11 @@
 /*   By: siroulea <siroulea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:25:44 by siroulea          #+#    #+#             */
-/*   Updated: 2024/03/25 16:49:57 by siroulea         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:25:03 by siroulea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// int	chekup_mapsize(char **map)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	maxj;
-// 	int	maxi;
-
-// 	maxi = ft_strlen(map[0]);
-// 	maxj = ft_strlenj(map);
-// 	j = 0;
-// 	i = ft_strlen(map[0]);
-// 	if (!(maxi - 1 >= maxj) || maxi > 41 || maxj > 21)
-// 	{
-// 		write(1, "Error\nmapsize\n", 14);
-// 		return (0);
-// 	}
-// 	while (j < maxj - 1)
-// 	{
-// 		if (ft_strlen(map[j]) != i)
-// 		{
-// 			write(1, "Error\nmaplen\n", 13);
-// 			return (0);
-// 		}
-// 		j++;
-// 	}
-// 	return (1);
-// }
-
-// int	chekup_contour(char **map)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		maxi;
-// 	t_data	*data;
-
-// 	data = get_data();
-// 	j = 0;
-// 	i = 0;
-// 	maxi = ft_strlen(map[0]);
-// 	data->maxj = ft_strlenj(map);
-// 	while (map[j])
-// 	{
-// 		if (map[0][i] != '1' || map[j][0] != '1' || map[j][maxi - 2] != '1'
-// 			|| map[data->maxj - 1][i] != '1')
-// 			return (0);
-// 		i++;
-// 		if (map[j][i] == '\n' || map[j][i] == 0)
-// 		{
-// 			j++;
-// 			i = 0;
-// 		}
-// 	}
-// 	return (1);
-// }
 
 int	chekup_character(char **map)
 {
@@ -147,51 +92,48 @@ int	type_path(char *type, int len)
 	t_data	*data;
 
 	data = get_data();
-	
 	if (type[0] == 'N' && type[1] == 'O')
 	{
-		if(!data->NO)
-		calloc_path("NO", len);
+		if (!data->NO)
+			calloc_path("NO", len);
 		else
-		return 0;
+			return (0);
 	}
-		
 	if (type[0] == 'S' && type[1] == 'O')
 	{
-		if(!data->SO)
-		calloc_path("SO", len);
+		if (!data->SO)
+			calloc_path("SO", len);
 		else
-		return 0;
+			return (0);
 	}
 	if (type[0] == 'W' && type[1] == 'E')
 	{
-		if(!data->WE)
-		calloc_path("WE", len);
+		if (!data->WE)
+			calloc_path("WE", len);
 		else
-		return 0;
+			return (0);
 	}
 	if (type[0] == 'E' && type[1] == 'A')
 	{
-		if(!data->EA)
-		calloc_path("EA", len);
+		if (!data->EA)
+			calloc_path("EA", len);
 		else
-		return 0;
+			return (0);
 	}
 	if (type[0] == 'F')
 	{
-		if(!data->F)
-		calloc_path("F", len);
+		if (!data->F)
+			calloc_path("F", len);
 		else
-		return 0;
+			return (0);
 	}
 	if (type[0] == 'C')
 	{
-		if(!data->C)
-		calloc_path("C", len);
+		if (!data->C)
+			calloc_path("C", len);
 		else
-		return 0;
+			return (0);
 	}
-
 	return (1);
 }
 
@@ -200,7 +142,7 @@ int	extract_texture(char **map, int j, int i, char *type)
 	t_data	*data;
 	int		temp;
 	int		len;
-	int no_path;
+	int		no_path;
 
 	no_path = 0;
 	data = get_data();
@@ -216,8 +158,8 @@ int	extract_texture(char **map, int j, int i, char *type)
 		i++;
 		len++;
 	}
-	if(type_path(type, len) == 0)
-	return 0;
+	if (type_path(type, len) == 0)
+		return (0);
 	i = temp;
 	len = 0;
 	if (type[0] == 'S' && type[1] == 'O')
@@ -269,8 +211,8 @@ int	extract_texture(char **map, int j, int i, char *type)
 		while (map[j][i] != ' ' && map[j][i] != '\t' && map[j][i] != '\0'
 			&& map[j][i] != '\n')
 		{
-			if(!((map[j][i] >= '0' && map[j][i] <= '9') || map[j][i] == ','  ))
-			return 0;
+			if (!((map[j][i] >= '0' && map[j][i] <= '9') || map[j][i] == ','))
+				return (0);
 			data->F[len] = map[j][i];
 			len++;
 			i++;
@@ -282,8 +224,8 @@ int	extract_texture(char **map, int j, int i, char *type)
 		while (map[j][i] != ' ' && map[j][i] != '\t' && map[j][i] != '\0'
 			&& map[j][i] != '\n')
 		{
-			if(!((map[j][i] >= '0' && map[j][i] <= '9') || map[j][i] == ','  ))
-			return 0;
+			if (!((map[j][i] >= '0' && map[j][i] <= '9') || map[j][i] == ','))
+				return (0);
 			data->C[len] = map[j][i];
 			len++;
 			i++;
@@ -293,18 +235,22 @@ int	extract_texture(char **map, int j, int i, char *type)
 	return (1);
 }
 
+// int	chekup_and_extract_texture2(char **map)
+// {
+	
+// 	return (1);
+// }
 
 int	chekup_and_extract_texture(char **map)
 {
 	t_data	*data;
 	int		i;
 	int		j;
+	int		no_path;
 
 	data = get_data();
 	i = 0;
 	j = 0;
-	int no_path;
-
 	no_path = 0;
 	while (map[j])
 	{
@@ -313,58 +259,55 @@ int	chekup_and_extract_texture(char **map)
 			i++;
 		}
 		if (map[j][i] == 'N' && map[j][i + 1] == 'O' && map[j][i + 2] == ' ')
-			{
-				no_path++;
-				if(extract_texture(map, j, i, "NO") == 0)
-				return(0);
-			}
+		{
+			no_path++;
+			if (extract_texture(map, j, i, "NO") == 0)
+				return (0);
+		}
 		else if (map[j][i] == 'S' && map[j][i + 1] == 'O' && map[j][i
 			+ 2] == ' ')
-			{
-				no_path++;
-				if(extract_texture(map, j, i, "SO") == 0)
-				return 0;
-			}
-			
+		{
+			no_path++;
+			if (extract_texture(map, j, i, "SO") == 0)
+				return (0);
+		}
 		else if (map[j][i] == 'W' && map[j][i + 1] == 'E' && map[j][i
 			+ 2] == ' ')
-			{
-				no_path++;
-				if(extract_texture(map, j, i, "WE") == 0)
-				return 0;
-			}
+		{
+			no_path++;
+			if (extract_texture(map, j, i, "WE") == 0)
+				return (0);
+		}
 		else if (map[j][i] == 'E' && map[j][i + 1] == 'A' && map[j][i
 			+ 2] == ' ')
-			{
-				no_path++;
-				if(extract_texture(map, j, i, "EA") == 0)
-				return 0;
-			}
-		else if (map[j][i] == 'F' && map[j][i + 1] == ' ')
-			{
-				no_path++;
-				if(extract_texture(map, j, i, "F") == 0)
-				return 0;
-			}
-		else if (map[j][i] == 'C' && map[j][i + 1] == ' ')
-			{
-				no_path++;
-				if(extract_texture(map, j, i, "C") == 0)
-				return 0;
-			}
-		if(no_path == 6 && map[j][i] == '1' )
 		{
-			
-			data->start_map = j ;
+			no_path++;
+			if (extract_texture(map, j, i, "EA") == 0)
+				return (0);
+		}
+		else if (map[j][i] == 'F' && map[j][i + 1] == ' ')
+		{
+			no_path++;
+			if (extract_texture(map, j, i, "F") == 0)
+				return (0);
+		}
+		else if (map[j][i] == 'C' && map[j][i + 1] == ' ')
+		{
+			no_path++;
+			if (extract_texture(map, j, i, "C") == 0)
+				return (0);
+		}
+		if (no_path == 6 && map[j][i] == '1')
+		{
+			data->start_map = j;
 			return (1);
 		}
-		
-		
 		i = 0;
 		j++;
 	}
 	return (1);
 }
+
 int	extract_rgb(void)
 {
 	t_data	*data;
@@ -390,7 +333,6 @@ int	extract_rgb(void)
 		{
 			temp[j] = '\0';
 			data->F_R = ft_atoi(temp);
-			
 		}
 		else if (rgb == 2)
 		{
@@ -402,22 +344,18 @@ int	extract_rgb(void)
 			temp[j] = '\0';
 			data->F_B = ft_atoi(temp);
 		}
-		if(data->F[i] == ',')
-		rgb++;
+		if (data->F[i] == ',')
+			rgb++;
 		j = 0;
 		i++;
 	}
-	if(rgb != 3)
-	return 0;
+	if (rgb != 3)
+		return (0);
 	i = 0;
 	j = 0;
-
-	
-	
 	rgb = 1;
 	while (data->C[i])
 	{
-		
 		while (data->C[i] != ',' && data->C[i])
 		{
 			temp[j] = data->C[i];
@@ -439,18 +377,17 @@ int	extract_rgb(void)
 			temp[j] = '\0';
 			data->C_B = ft_atoi(temp);
 		}
-		if(data->C[i] == ',')
-		rgb++;
+		if (data->C[i] == ',')
+			rgb++;
 		j = 0;
 		i++;
 	}
-	if(rgb != 3)
-	return 0;
-
+	if (rgb != 3)
+		return (0);
 	return (1);
 }
 
-int	chekup_F_and_C(void)
+int	chekup_f_and_c(void)
 {
 	t_data	*data;
 
@@ -470,138 +407,5 @@ int	chekup_rgb(void)
 	if (data->F_R > 255 || data->F_G > 255 || data->F_B > 255 || data->C_R > 255
 		|| data->C_G > 255 || data->C_B > 255)
 		return (0);
-	return (1);
-}
-
-int	chek_path(char type, char *path)
-{
-	t_data	*data;
-
-	data = get_data();
-	if (type != 'N')
-	{
-		if (ft_strncmp(path, data->NO) == 0)
-			return (0);
-	}
-	if (type != 'S')
-	{
-		if (ft_strncmp(path, data->SO) == 0)
-			return (0);
-	}
-	if (type != 'W')
-	{
-		if (ft_strncmp(path, data->WE) == 0)
-			return (0);
-	}
-	if (type != 'E')
-	{
-		if (ft_strncmp(path, data->EA) == 0)
-			return (0);
-	}
-	return (1);
-}
-
-int	chekup_path(void)
-{
-	t_data	*data;
-
-	data = get_data();
-	if (chek_path('N', data->NO) == 0)
-		return (0);
-	if (chek_path('S', data->SO) == 0)
-		return (0);
-	if (chek_path('W', data->WE) == 0)
-		return (0);
-	if (chek_path('E', data->EA) == 0)
-		return (0);
-	return (1);
-}
-void extract_real_map(void)
-{
-	int		i;
-	int		j;
-	int g;
-	t_data	*data;
-
-	data = get_data();
-	i = 0;
-	g = 0;
-	
-	data->maxj = ft_strlenj(data->map);
-	j = data->start_map;
-	data->real_map = (char **)calloc(sizeof(char *), (data->maxj - data->start_map) +1);
-	while (data->map[j])
-	{
-		data->real_map[g] = (char *)calloc(sizeof(char), ft_strlen(data->map[j]));
-		while (data->map[j][i])
-		{
-			
-			data->real_map[g][i] = data->map[j][i];
-			++i;
-		}
-		++j;
-		++g;
-		i = 0;
-	}
-	data->real_map[g] = NULL;
-	//  print_maptest(data->area );
-	// return (data->area);	
-}
-
-int	ft_mapchekup(char **map)
-{
-	t_data *data;
-	data = get_data();
-	
-	if(chekup_and_extract_texture(map) == 0)
-	{
-		write(2, "Error\npath\n", 12);
-		return (0);
-	}
-	if (chekup_path() == 0)
-	{
-		write(2, "Error\npath texture\n", 20);
-		return (0);
-	}
-	if (chekup_F_and_C() == 0)
-	{
-		write(2, "Error\nF or C\n", 14);
-		return (0);
-	}
-	if(extract_rgb()== 0)
-	{
-		write(2, "Error\nextract rgb\n", 19);
-		return (0);
-	}
-	if (chekup_rgb() == 0)
-	{
-		write(2, "Error\nrgb\n", 11);
-		return (0);
-	}
-	extract_real_map();
-	
-	if (chekup_character(data->real_map) == 0)
-	{
-		write(1, "Error\ncharacter\n", 16);
-		return (0);
-	}
-	if (contchar(data->real_map, 0) == 0)
-	{
-		write(1, " Error\ncontchar\n", 16);
-		return (0);
-	}
-
-	// if (chekup_mapsize(map) == 0)
-	// 	return (0);
-	// if (chekup_contour(map) == 0)
-	// {
-	// 	write(1, "Error\ncontour\n", 14);
-	// 	return (0);
-	// // }
-	if (flood_fill_main(data->real_map, 0, 0) == 0)
-	{
-		write(1, "Error\nmap impossible\n", 21);
-		return (0);
-	}
 	return (1);
 }
